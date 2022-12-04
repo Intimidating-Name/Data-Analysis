@@ -1,3 +1,4 @@
+import math
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -85,12 +86,12 @@ def get_differences(first, second):
     difference = {}
     for k, v in randall.items():
         if k.lower() in english:
-            difference[k] = v - english[k.lower()]
+            difference[k] = (float(v) / float(english[k.lower()])) - 1
         elif k in english:
-            difference[k] = v - english[k]
+            difference[k] = (float(v) / float(english[k])) - 1
         else:
-            difference[k] = v
-    print({k:v for k, v in difference.items() if v > 0.001})
+            difference[k] = float('inf')
+    print({k:v for k, v in difference.items() if v > 17})
     return difference
 
 def basic_table(first, second):
